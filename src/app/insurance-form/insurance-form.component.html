@@ -1,0 +1,68 @@
+<form [formGroup]="form" (ngSubmit)="submit()" fxLayout="column">
+
+  <!-- Személyes adatok -->
+  <mat-form-field appearance="fill">
+    <mat-label>Teljes név</mat-label>
+    <input matInput formControlName="fullName" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Születési dátum</mat-label>
+    <input matInput [matDatepicker]="birthdatePicker" formControlName="birthDate" required>
+    <mat-datepicker-toggle matSuffix [for]="birthdatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #birthdatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-radio-group formControlName="gender" aria-label="Select gender">
+    <mat-radio-button value="female">Nő</mat-radio-button>
+    <mat-radio-button value="male">Férfi</mat-radio-button>
+  </mat-radio-group>
+
+  <!-- Kapcsolattartási adatok -->
+  <mat-form-field appearance="fill">
+    <mat-label>E-mail cím</mat-label>
+    <input matInput formControlName="email" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Telefonszám</mat-label>
+    <input matInput formControlName="phone" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Lakcím</mat-label>
+    <input matInput formControlName="address" required>
+  </mat-form-field>
+
+  <!-- Egészségügyi adatok -->
+  <div>
+    <mat-checkbox formControlName="smoker">Dohányzó</mat-checkbox>
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Egészségügyi problémák</mat-label>
+    <textarea matInput formControlName="healthIssues"></textarea>
+  </mat-form-field>
+
+  <!-- Biztosítási részletek -->
+  <mat-form-field appearance="fill">
+    <mat-label>Biztosítási összeg</mat-label>
+    <input matInput type="number" formControlName="coverageAmount" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Biztosítás időtartama (év)</mat-label>
+    <input matInput type="number" formControlName="duration" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Fizetési mód</mat-label>
+    <mat-select formControlName="paymentMethod">
+      <mat-option value="monthly">Havi</mat-option>
+      <mat-option value="quarterly">Negyedéves</mat-option>
+      <mat-option value="yearly">Éves</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Biztosítás kötése</button>
+</form>

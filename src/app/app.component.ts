@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {NavigationComponent} from "./navigation/navigation.component";
 import {HomeComponent} from "./home/home.component";
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import {HomeComponent} from "./home/home.component";
   imports: [
     RouterOutlet,
     NavigationComponent,
-    HomeComponent
+    HomeComponent,
+    FlexLayoutModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
