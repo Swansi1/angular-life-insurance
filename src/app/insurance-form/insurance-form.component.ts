@@ -9,6 +9,7 @@ import {MatDatepickerModule, MatDatepickerToggle} from "@angular/material/datepi
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {FirebaseService} from "../services/firebase-service.service";
 
 @Component({
   selector: 'app-insurance-form',
@@ -34,7 +35,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 export class InsuranceFormComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private insuranceService: FirebaseService) {
     this.form = this.fb.group({
       fullName: ['', [Validators.required]],
       birthDate: [null, [Validators.required]],
@@ -52,8 +53,12 @@ export class InsuranceFormComponent {
 
   submit() {
     if (this.form.valid) {
-      // Handle the form submission
-      console.log(this.form.value);
+      this.insuranceService.addInsurance(this.form.value).then(() => {
+        // TODO sikeres üzenet megjelenítése
+      }).catch((error) => {
+        // TODO hibaüzenet megjelenítése
+        console.error(error);
+      });
     }
   }
 }
