@@ -1,5 +1,44 @@
-<div class="container-fluid">
-  <h1 class="text-center">Kérem töltse ki az alábbi alábbi adatokat</h1>
+<ng-container *ngIf="!isLoading">
+  <mat-table [dataSource]="insurances" class="mat-elevation-z8">
 
-  Favorite color: <input type="text" [(ngModel)]="favoriteColor">
+    <!-- Column Definitions -->
+    <ng-container matColumnDef="fullName">
+      <mat-header-cell *matHeaderCellDef> Full Name </mat-header-cell>
+      <mat-cell *matCellDef="let insurance"> {{insurance.fullName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let insurance"> {{insurance.email}} </mat-cell>
+    </ng-container>
+
+    <!-- Edit Button Column -->
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+      <mat-cell *matCellDef="let insurance">
+        <button mat-icon-button (click)="editInsurance(insurance)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Delete Button Column -->
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+      <mat-cell *matCellDef="let insurance">
+        <button mat-icon-button color="warn" (click)="deleteInsurance(insurance)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Header and Row Declarations -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</ng-container>
+
+<div *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+  <p>Loading data...</p>
 </div>
