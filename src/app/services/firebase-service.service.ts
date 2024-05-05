@@ -41,14 +41,14 @@ export class FirebaseService {
     return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   }
 
-  async updateInsurance(insurance: Insurance) {
-    // const insuranceRef = doc(this.db, 'insurances', insurance.id);
-    // await updateDoc(insuranceRef, insurance);
+  async updateInsurance(id: string, updateData: Partial<Insurance>) {
+    const insuranceRef = doc(this.db, 'insurances', id);
+    return await updateDoc(insuranceRef, updateData);
   }
 
   async deleteInsurance(id: string) {
     const insuranceRef = doc(this.db, 'insurances', id);
-    await deleteDoc(insuranceRef);
+   return await deleteDoc(insuranceRef);
   }
 }
 

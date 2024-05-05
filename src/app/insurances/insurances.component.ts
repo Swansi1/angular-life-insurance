@@ -15,6 +15,9 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {Insurance} from "../models/insurance";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {EditInsuranceDialogComponent} from "../edit-insurance-dialog/edit-insurance-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({
@@ -46,13 +49,11 @@ export class InsurancesComponent implements OnInit {
   insurances: { [p: string]: any; id: string }[] = []; // Store insurance data as an array
   isLoading = true;
 
-  constructor(private firebaseService: FirebaseService) {
-  }
+  constructor(public dialog: MatDialog, private firebaseService: FirebaseService, private snackBar: MatSnackBar) {}
 
   async ngOnInit(): Promise<void> {
     try {
       this.insurances = await this.firebaseService.getAllInsurances();
-      console.log(this.insurances);
     } catch (error) {
       console.error('Failed to load insurances:', error);
     }
@@ -61,11 +62,39 @@ export class InsurancesComponent implements OnInit {
 
   editInsurance(insurance: Insurance) {
     console.log('Editing insurance:', insurance);
-    // TODO
+    const dialogRef = this.dialog.open(EditInsuranceDialogComponent, {
+      width: '250px',
+      data: { insurance }
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result) {
+        // find insurance in the array and update it. result return only fullname and email
+        const index = this.insurances.findIndex(i => i.id === insurance.id);
+        console.log('Index:', index);
+        this.insurances[index]['fullName'] = result.fullName;
+        this.insurances[index]['email'] = result.email;
+
+        await this.firebaseService.updateInsurance(insurance.id, result);
+
+        this.snackBar.open('Data successfully updated', 'Close', {
+          duration: 2000,
+        });
+        console.log('Edited data:', result);
+      }
+    });
   }
 
-  deleteInsurance(insurance: Insurance) {
+  async deleteInsurance(insurance: Insurance) {
     console.log('Deleting insurance:', insurance);
-    // TODO
+    try {
+      await this.firebaseService.deleteInsurance(insurance.id);
+      this.insurances = this.insurances.filter(i => i.id !== insurance.id);
+      this.snackBar.open('Data successfully deleted', 'Close', {
+        duration: 2000,
+      });
+    } catch (error) {
+      console.error('Failed to delete insurance:', error);
+    }
   }
 }
