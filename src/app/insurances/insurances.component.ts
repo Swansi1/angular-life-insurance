@@ -72,8 +72,7 @@ export class InsurancesComponent implements OnInit {
         // find insurance in the array and update it. result return only fullname and email
         const index = this.insurances.findIndex(i => i.id === insurance.id);
         console.log('Index:', index);
-        this.insurances[index]['fullName'] = result.fullName;
-        this.insurances[index]['email'] = result.email;
+        this.insurances[index] = result;
 
         await this.firebaseService.updateInsurance(insurance.id, result);
 

@@ -31,6 +31,14 @@ export class EditInsuranceDialogComponent {
   editForm = new FormGroup({
     fullName: new FormControl(this.data.insurance.fullName),
     email: new FormControl(this.data.insurance.email),
+    phone: new FormControl(this.data.insurance.phone),
+    address: new FormControl(this.data.insurance.address),
+    smoker: new FormControl(this.data.insurance.smoker),
+    healthIssues: new FormControl(this.data.insurance.healthIssues),
+    coverageAmount: new FormControl(this.data.insurance.coverageAmount),
+    duration: new FormControl(this.data.insurance.duration),
+    paymentMethod: new FormControl(this.data.insurance.paymentMethod),
+    gender: new FormControl(this.data.insurance.gender),
   });
 
   constructor(
