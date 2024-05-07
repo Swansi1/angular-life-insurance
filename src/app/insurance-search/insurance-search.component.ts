@@ -16,6 +16,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {NgIf} from "@angular/common";
 import {MatInput} from "@angular/material/input";
+import {ReversePipe} from "../pipe/reverse.pipe";
 
 @Component({
   selector: 'app-insurance-search',
@@ -39,7 +40,8 @@ import {MatInput} from "@angular/material/input";
     NgIf,
     MatHeaderCellDef,
     MatInput,
-    MatLabel
+    MatLabel,
+    ReversePipe
   ],
   templateUrl: './insurance-search.component.html',
   styleUrl: './insurance-search.component.css'
