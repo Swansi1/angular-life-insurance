@@ -1,10 +1,12 @@
-<div class="container-fluid">
-  <div class="d-flex flex-column justify-content-center">
-    <div class="mx-auto">
-      <h1 class="text-danger">404 page not found</h1>
-    </div>
-    <div class="mx-auto">
-      <mat-spinner color="warn"></mat-spinner>
+<ng-container *ngIf="showSpinner;">
+  <div class="container-fluid">
+    <div class="d-flex flex-column justify-content-center">
+      <div class="mx-auto">
+        <h1 class="text-danger">404 page not found</h1>
+      </div>
+      <div class="mx-auto">
+        <mat-spinner color="warn"></mat-spinner>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
