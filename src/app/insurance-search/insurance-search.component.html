@@ -1,0 +1,61 @@
+<mat-form-field appearance="fill">
+  <mat-label>Név szerinti keresés</mat-label>
+  <input matInput [(ngModel)]="searchQuery">
+</mat-form-field> <br>
+<button mat-raised-button color="primary" class="mb-5" (click)="search()">Search</button>
+
+<ng-container *ngIf="!isLoading">
+  <mat-table [dataSource]="insurances" class="mat-elevation-z8">
+
+    <!-- Column Definitions -->
+    <ng-container matColumnDef="fullName">
+      <mat-header-cell *matHeaderCellDef> Full Name </mat-header-cell>
+      <mat-cell *matCellDef="let insurance"> {{insurance.fullName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let insurance"> {{insurance.email}} </mat-cell>
+    </ng-container>
+
+    <!-- Header and Row Declarations -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</ng-container>
+
+<div *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+  <p>Loading data...</p>
+</div>
+
+<mat-form-field appearance="fill" class="mt-5">
+  <mat-label>Email szerinti keresés</mat-label>
+  <input matInput [(ngModel)]="searchQueryEmail">
+</mat-form-field> <br>
+<button mat-raised-button color="primary" class="mb-5" (click)="searchEmail()">Search</button>
+
+<ng-container *ngIf="!isLoadingEmail">
+  <mat-table [dataSource]="insurancesEmail" class="mat-elevation-z8">
+
+    <!-- Column Definitions -->
+    <ng-container matColumnDef="fullName">
+      <mat-header-cell *matHeaderCellDef> Full Name </mat-header-cell>
+      <mat-cell *matCellDef="let insurancesEmail"> {{insurancesEmail.fullName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let insurancesEmail"> {{insurancesEmail.email}} </mat-cell>
+    </ng-container>
+
+    <!-- Header and Row Declarations -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</ng-container>
+
+<div *ngIf="isLoadingEmail">
+  <mat-spinner></mat-spinner>
+  <p>Loading data...</p>
+</div>

@@ -1,7 +1,7 @@
 // src/app/firebase.service.ts
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, getDoc, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, getDoc, getDocs, query, where, limit } from 'firebase/firestore';
 import {Insurance} from "../models/insurance";
 import {Firestore} from "@angular/fire/firestore";
 
@@ -50,7 +50,17 @@ export class FirebaseService {
     const insuranceRef = doc(this.db, 'insurances', id);
    return await deleteDoc(insuranceRef);
   }
-}
 
-export class FirebaseServiceService {
+  async searchInsurancesByName(name: string) {
+    const q = query(collection(this.db, 'insurances'), where('fullName', '==', name));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  }
+
+  async searchInsurancesByEmail(email: string) {
+    const q = query(collection(this.db, 'insurances'), where('email', '==', email));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  }
+
 }
