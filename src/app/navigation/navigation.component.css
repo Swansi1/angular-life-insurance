@@ -5,3 +5,26 @@
 .nav-item {
   margin-right: 20px;
 }
+
+.mdc-fab--extended {
+  border-radius: 10px;
+}
+
+@media (max-width: 999px) {
+  .navbar-collapse.collapse {
+    z-index: 999;
+    background: var(--mat-toolbar-container-background-color);
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  ul .nav-item {
+    padding-bottom: 10px;
+  }
+
+  .nav-item button {
+    justify-content: left;
+    min-width: 220px;
+    text-align: left;
+  }
+}
