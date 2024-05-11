@@ -10,6 +10,7 @@ import {MatCheckbox} from "@angular/material/checkbox";
 import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {FirebaseService} from "../services/firebase-service.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-insurance-form',
@@ -35,7 +36,7 @@ import {FirebaseService} from "../services/firebase-service.service";
 export class InsuranceFormComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private insuranceService: FirebaseService) {
+  constructor(private fb: FormBuilder, private insuranceService: FirebaseService, private snackBar: MatSnackBar) {
     this.form = this.fb.group({
       fullName: ['', [Validators.required]],
       birthDate: [null, [Validators.required]],
@@ -54,11 +55,17 @@ export class InsuranceFormComponent {
   submit() {
     if (this.form.valid) {
       this.insuranceService.addInsurance(this.form.value).then(() => {
-        // TODO sikeres üzenet megjelenítése
+        this.snackBar.open('Insurance created successfully.', 'Close', {
+          duration: 2000,
+        });
       }).catch((error) => {
-        // TODO hibaüzenet megjelenítése
+        this.snackBar.open('Failed to create new Insurance.', 'Close', {
+          duration: 2000,
+        });
         console.error(error);
       });
+
+      this.form.reset();
     }
   }
 }
